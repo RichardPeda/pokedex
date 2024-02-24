@@ -1,23 +1,26 @@
 * {
     margin: 0;
+    transition: all 225ms ease-in-out;
 }
 
 body {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+   
 }
 
 
 #card-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     padding: 20px;
 }
 
 .card-border {
     display: flex;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     overflow: hidden;
     padding: 10px;
     background: linear-gradient(113deg, rgba(126, 126, 126, 1) 0%, rgba(255, 255, 255, 1) 51%, rgba(126, 126, 126, 1) 100%);
@@ -25,9 +28,24 @@ body {
     border: 1px solid rgb(105, 105, 105);
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
     position: relative;
+    cursor: pointer;
+}
+.card-border:hover{
+    transform: scale(1.05)
 }
 
-.card {
+.card{
+    width: 250px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+  
+}
+
+.card-inner {
+    /* width: 100%;
+    height: 100%; */
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -35,7 +53,9 @@ body {
     border: 1px solid rgba(114, 175, 0, 0.9);
     border-radius: 10px;
     overflow: hidden;
-    padding: 10px;
+    padding: 15px;
+   
+    
 }
 
 .card-header {
@@ -53,12 +73,16 @@ position: relative;
 
 }
 .platform {
-   
-    /* transform: translateX(-25%); */
-   
-    background-color: white;
-    border-radius:1000px;
+   width: 100%;
+   height: 100px;
+    transform: translateY(20px);
+    background-color: green;
+   position: absolute;
+    bottom: 0;
+    width: 100%;
     flex: 1;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
    
 }
 
