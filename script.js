@@ -1,7 +1,7 @@
 let limit = 3;
 let offset = 0;
 
-let pokeNames = [];
+
 let pokeURL = [];
 let pokeData = [];
 let Pokemoves = [];
@@ -17,53 +17,79 @@ async function loadPokemonURL() {
     let results = responseAsJson['results'];
     results.forEach(result => {
 
-        pokeData.push(result);
+        pokeURL.push(result['url']);
     });
-
-    pokeData.forEach(data => {
-        pokeURL.push(data['url'])
-
-    })
 
     loadPokeDetails()
 }
 
 
 async function loadPokeDetails() {
-    for (let i = 0; i < pokeData.length; i++) {
-        let url = pokeData[i]['url'];
+    // pokeData.forEach(data => {
+    //     pokeURL.push(data['url'])
+    // })
+
+    for (let i = 0; i < pokeURL.length; i++) {
+        let url = pokeURL[i];
+        
         let response = await fetch(url);
         let responseAsJson = await response.json();
+
+pokeData.push(responseAsJson)
+
         console.log(responseAsJson)
-        moves.push(responseAsJson['moves'])
-
-        getAbilities(responseAsJson, i)
-        getSprites(responseAsJson, i)
-
-        for (let j = 0; j < moves.length; j++) {
-            let move = moves[j];
-            myarray = [];
-            for (let k = 0; k < move.length; k++) {
-                let element = move[k]['move']['name'];
-                myarray.push(element)
-            }
-            pokeData[i].moves = (myarray);
-        }
+    // let results = responseAsJson['results'];
     }
+
+
+        // console.log(responseAsJson)
+        // moves.push(responseAsJson['moves'])
+
+        // pokeData[i].id = getID(responseAsJson)
+        // pokeData[i].types = getTypes(responseAsJson)
+        // pokeData[i].abilities = getAbilities(responseAsJson)
+        // pokeData[i].sprite = getSprites(responseAsJson)
+
+        // for (let j = 0; j < moves.length; j++) {
+        //     let move = moves[j];
+        //     myarray = [];
+        //     for (let k = 0; k < move.length; k++) {
+        //         let element = move[k]['move']['name'];
+        //         myarray.push(element)
+        //     }
+        //     pokeData[i].moves = (myarray);
+        // }
+    
 }
+// function getID(dataSet) {
+//     return dataSet['id']
+// }
 
 
-function getAbilities(dataSet, i) {
-    let abilities = dataSet['abilities'];
-    let array = []
-    abilities.forEach(ability => {
-        array.push(ability['ability']['name'])
-    });
-    pokeData[i].abilities = (array);
-}
+// function getTypes(dataSet) {
+//     let types = dataSet['types'];
+//     let array = []
+//     types.forEach(type => {
+//         array.push(type['type']['name'])
+//     });
+//     return array
+// }
 
-function getSprites(dataSet, i) {
-    let sprites = dataSet['sprites'];
-    let sprite = sprites['front_default']
-     pokeData[i].sprite = (sprite);
+// function getAbilities(dataSet) {
+//     let abilities = dataSet['abilities'];
+//     let array = []
+//     abilities.forEach(ability => {
+//         array.push(ability['ability']['name'])
+//     });
+//     return array
+// }
+
+// function getSprites(dataSet, i) {
+//     let sprite = dataSet['sprites']['front_default']
+//     return sprite;
+// }
+
+function renderCard() {
+    let container = document.getElementById('card-container');
+    container.innerHTML = ``
 }

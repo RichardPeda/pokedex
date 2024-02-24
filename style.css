@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#card-container {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+}
+
+.card-border {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    padding: 10px;
+    background: linear-gradient(113deg, rgba(126, 126, 126, 1) 0%, rgba(255, 255, 255, 1) 51%, rgba(126, 126, 126, 1) 100%);
+    border-radius: 10px;
+    border: 1px solid rgb(105, 105, 105);
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background: linear-gradient(113deg, rgba(152, 255, 99, 1) 0%, rgba(231, 255, 58, 1) 51%, rgba(152, 255, 99, 1) 100%);
+    border: 1px solid rgba(114, 175, 0, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-container {
+    width: 100%;
+position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+
+}
+.platform {
+   
+    /* transform: translateX(-25%); */
+   
+    background-color: white;
+    border-radius:1000px;
+    flex: 1;
+   
+}
+
+
+.image-container img {
+    width: 50%;
+}
+
+#card-id {
+    font-size: 12px;
+}
+
+.ability-container {
+    display: flex;
+    gap: 10px;
+}
+
+.ability {
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-block: 10px;
+
+}
+
+.secondary {
+    background-color: greenyellow;
+}
+
+
