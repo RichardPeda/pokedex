@@ -6,7 +6,7 @@ let pokeURL = [];
 let pokeData = [];
 let Pokemoves = [];
 let moves = [];
-let move = [];
+// let move = [];
 let myarray = [];
 let length = [];
 
@@ -24,7 +24,7 @@ async function loadPokemonURL() {
         pokeURL.push(data['url'])
 
     })
-    // console.log(pokeData)
+
     loadPokeDetails()
 }
 
@@ -34,26 +34,36 @@ async function loadPokeDetails() {
         let url = pokeData[i]['url'];
         let response = await fetch(url);
         let responseAsJson = await response.json();
-        // console.log(responseAsJson)
+        console.log(responseAsJson)
         moves.push(responseAsJson['moves'])
 
-        for (let j = 0; j < moves.length; j++) {
-            let tempMove = moves[j];
-            myarray = [];
-            for (let k = 0; k < tempMove.length; k++) {
-              
-                
+        getAbilities(responseAsJson, i)
+        getSprites(responseAsJson, i)
 
-                const e = tempMove[k]['move']['name'];
-                
-                myarray.push(e)
-                
+        for (let j = 0; j < moves.length; j++) {
+            let move = moves[j];
+            myarray = [];
+            for (let k = 0; k < move.length; k++) {
+                let element = move[k]['move']['name'];
+                myarray.push(element)
             }
             pokeData[i].moves = (myarray);
         }
-
     }
+}
 
 
+function getAbilities(dataSet, i) {
+    let abilities = dataSet['abilities'];
+    let array = []
+    abilities.forEach(ability => {
+        array.push(ability['ability']['name'])
+    });
+    pokeData[i].abilities = (array);
+}
 
+function getSprites(dataSet, i) {
+    let sprites = dataSet['sprites'];
+    let sprite = sprites['front_default']
+     pokeData[i].sprite = (sprite);
 }
