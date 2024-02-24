@@ -1,3 +1,50 @@
+:root {
+
+    --clr-font-white: rgb(243, 243, 243);
+
+    --clr-bg-green-side: rgb(38, 100, 7);
+    --clr-bg-green-middle: rgb(107, 231, 45);
+    --clr-bg-green-border: rgba(114, 175, 0, 0.9);
+    --clr-pf-green: rgb(38, 100, 7);
+
+    --clr-bg-red-side: rgb(161, 57, 50);
+    --clr-bg-red-middle: rgb(255, 196, 58);
+    --clr-bg-red-border: rgba(182, 50, 41, 0.589);
+    --clr-pf-red: rgb(161, 57, 50);
+
+    --clr-bg-deepred-side: rgb(107, 26, 21);
+    --clr-bg-deepred-middle: rgb(152, 80, 76);
+    --clr-bg-deepred-border: rgb(107, 26, 21);
+    --clr-pf-deepred: rgb(73, 15, 12);
+
+    --clr-bg-blue-side: rgb(57, 104, 203);
+    --clr-bg-blue-middle: rgb(101, 136, 211);
+    --clr-bg-blue-border: rgb(99, 148, 255);
+    --clr-pf-blue: rgb(22, 65, 156);
+
+    --clr-bg-gray-side: rgb(67, 67, 67);
+    --clr-bg-gray-middle: rgb(154, 154, 154);
+    --clr-bg-gray-border: rgb(67, 67, 67);
+    --clr-pf-gray: rgb(43, 43, 43);
+
+    --clr-bg-yellow-side: rgb(196, 158, 35);
+    --clr-bg-yellow-middle: rgb(255, 242, 99);
+    --clr-bg-yellow-border: rgb(245, 255, 99);
+    --clr-pf-yellow: rgb(196, 158, 35);
+
+    --clr-bg-purple-side: rgb(132, 26, 118);
+    --clr-bg-purple-middle: rgb(189, 63, 172);
+    --clr-bg-purple-border: rgb(132, 26, 118);
+    --clr-pf-purple: rgb(88, 17, 78);
+
+    --clr-bg-brown-side: rgb(116, 66, 24);
+    --clr-bg-brown-middle: rgb(155, 88, 32);
+    --clr-bg-brown-border: rgb(116, 66, 24);
+    --clr-pf-brown: rgb(85, 47, 16);
+}
+
+
+
 * {
     margin: 0;
     transition: all 225ms ease-in-out;
@@ -6,9 +53,9 @@
 body {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-   
-}
+    /* color: var(--clr-font-white); */
 
+}
 
 #card-container {
     display: flex;
@@ -30,60 +77,64 @@ body {
     position: relative;
     cursor: pointer;
 }
-.card-border:hover{
-    transform: scale(1.05)
-}
 
-.card{
+
+.card {
     width: 250px;
     height: 250px;
     position: relative;
     overflow: hidden;
     border-radius: 10px;
-  
+    color: var(--clr-font-white);
+
+
+}
+
+.card:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .card-inner {
-    /* width: 100%;
-    height: 100%; */
     display: flex;
     flex-direction: column;
     flex: 1;
-    background: linear-gradient(113deg, rgba(152, 255, 99, 1) 0%, rgba(231, 255, 58, 1) 51%, rgba(152, 255, 99, 1) 100%);
-    border: 1px solid rgba(114, 175, 0, 0.9);
     border-radius: 10px;
     overflow: hidden;
     padding: 15px;
-   
-    
+
+
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .image-container {
     width: 100%;
-position: relative;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 5;
 
 }
+
 .platform {
-   width: 100%;
-   height: 100px;
+    width: 100%;
+    height: 100px;
     transform: translateY(20px);
-    background-color: green;
-   position: absolute;
+
+    position: absolute;
     bottom: 0;
     width: 100%;
     flex: 1;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-   
+
 }
 
 
@@ -102,10 +153,9 @@ position: relative;
 
 .ability {
     padding: 8px;
-    border: 1px solid white;
+  
     border-radius: 10px;
     margin-block: 10px;
-
 }
 
 .secondary {
@@ -113,3 +163,76 @@ position: relative;
 }
 
 
+
+.bg-green {
+    background: linear-gradient(113deg, var(--clr-bg-green-side) 0%, var(--clr-bg-green-middle) 51%, var(--clr-bg-green-side) 100%);
+    border: 1px solid var(--clr-bg-green-border);
+}
+
+.pf-green {
+    background-color: var(--clr-pf-green);
+}
+
+.bg-red {
+    background: linear-gradient(113deg, var(--clr-bg-red-side) 0%, var(--clr-bg-red-middle) 51%, var(--clr-bg-red-side) 100%);
+    border: 1px solid var(--clr-bg-red-border);
+}
+
+.pf-red {
+    background-color: var(--clr-pf-red);
+}
+
+.bg-deepred {
+    background: linear-gradient(113deg, var(--clr-bg-deepred-side) 0%, var(--clr-bg-deepred-middle) 51%, var(--clr-bg-deepred-side) 100%);
+    border: 1px solid var(--clr-bg-deepred-border);
+}
+
+.pf-deepred {
+    background-color: var(--clr-pf-deepred);
+}
+
+
+.bg-blue {
+    background: linear-gradient(113deg, var(--clr-bg-blue-side) 0%, var(--clr-bg-blue-middle) 51%, var(--clr-bg-blue-side) 100%);
+    border: 1px solid var(--clr-bg-blue-border);
+}
+
+.pf-blue {
+    background-color: var(--clr-pf-blue);
+}
+
+.bg-gray {
+    background: linear-gradient(113deg, var(--clr-bg-gray-side) 0%, var(--clr-bg-gray-middle) 51%, var(--clr-bg-gray-side) 100%);
+    border: 1px solid var(--clr-bg-gray-border);
+}
+
+.pf-gray {
+    background-color: var(--clr-pf-gray);
+}
+
+.bg-yellow {
+    background: linear-gradient(113deg, var(--clr-bg-yellow-side) 0%, var(--clr-bg-yellow-middle) 51%, var(--clr-bg-yellow-side) 100%);
+    border: 1px solid var(--clr-bg-yellow-border);
+}
+
+.pf-yellow {
+    background-color: var(--clr-pf-yellow);
+}
+
+.bg-purple {
+    background: linear-gradient(113deg, var(--clr-bg-purple-side) 0%, var(--clr-bg-purple-middle) 51%, var(--clr-bg-purple-side) 100%);
+    border: 1px solid var(--clr-bg-purple-border);
+}
+
+.pf-purple {
+    background-color: var(--clr-pf-purple);
+}
+
+.bg-brown {
+    background: linear-gradient(113deg, var(--clr-bg-brown-side) 0%, var(--clr-bg-brown-middle) 51%, var(--clr-bg-brown-side) 100%);
+    border: 1px solid var(--clr-bg-purple-border);
+}
+
+.pf-brown {
+    background-color: var(--clr-pf-brown);
+}
