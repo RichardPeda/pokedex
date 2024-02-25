@@ -1,24 +1,22 @@
-let limit = 30;
+let limit = 15;
 let offset = 0;
 
 
 let pokeURL = [];
 let pokeData = [];
+let pokeFilter = [];
 
 
 async function init() {
 
-    await loadPokemonURL();
-    await loadPokeDetails();
-    renderCard();
+    await loadPokemonURL(offset, limit);
+    await loadPokeDetails(offset, limit);
+    renderCard(pokeData);
 }
 
 
-
-
-
-async function loadPokemonURL() {
-    let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+async function loadPokemonURL(start, end) {
+    let url = `https://pokeapi.co/api/v2/pokemon?limit=${end}&offset=${start}`;
     let response = await fetch(url);
     let responseAsJson = await response.json();
     let results = responseAsJson['results'];
@@ -26,40 +24,43 @@ async function loadPokemonURL() {
 
         pokeURL.push(result['url']);
     });
-
-
 }
 
 
-async function loadPokeDetails() {
+async function loadPokeDetails(offset, limit) {
 
-    for (let i = 0; i < pokeURL.length; i++) {
+   
+
+    for (let i = offset; i < limit; i++) {
         let url = pokeURL[i];
 
         let response = await fetch(url);
         let responseAsJson = await response.json();
-
         pokeData.push(responseAsJson)
 
     }
     console.log(pokeData)
 }
 
+async function loadMore() {
+    offset = limit + 1;
+    limit += 16;
+    await loadPokemonURL(offset, limit);
+    await loadPokeDetails(offset, limit);
+    renderCard(pokeData);
+}
 
-function renderCard() {
+
+function renderCard(useData) {
     let container = document.getElementById('card-container');
     container.innerHTML = ''
-    for (let index = 0; index < pokeData.length; index++) {
+    for (let index = 0; index < useData.length; index++) {
 
-        let { types, bgColor, pfColor } = getTypes(index);
-
-
+        let { types, bgColor, pfColor } = getTypes(useData, index);
         let htmlSnippet = renderTypes(types, pfColor);
-        container.innerHTML += smallCardHTML(index, htmlSnippet, bgColor, pfColor)
+        container.innerHTML += smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor)
 
     }
-
-
 }
 
 function getBgColors(expr) {
@@ -103,7 +104,7 @@ function getBgColors(expr) {
                 bgColor: 'bg-purple',
                 pfColor: 'pf-purple'
             }
-            case 'ground':
+        case 'ground':
             return {
                 bgColor: 'bg-brown',
                 pfColor: 'pf-brown'
@@ -116,8 +117,8 @@ function getBgColors(expr) {
     }
 }
 
-function getTypes(index) {
-    let types = pokeData[index]['types'];
+function getTypes(useData, index) {
+    let types = useData[index]['types'];
     let typesArray = [];
     for (let index = 0; index < types.length; index++) {
         const name = types[index]['type']['name'];
@@ -150,19 +151,19 @@ function typeHTMLsnippet(type, pfColor) {
     return html
 }
 
-function smallCardHTML(index, htmlSnippet, bgColor, pfColor) {
+function smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor) {
     let html = /*html*/`
     <div class="card">
                 <div class="card-inner ${bgColor}">
                     <div class="card-header">
-                        <h2 id="name">${pokeData[index]['name']}</h2>
-                        <div id="card-id">ID 000${pokeData[index]['order']}</div>
+                        <h2 id="name">${useData[index]['name']}</h2>
+                        <div id="card-id">ID 000${useData[index]['order']}</div>
                     </div>
                     <div class="ability-container">
                        ${htmlSnippet}
                     </div>
                     <div class="image-container">
-                        <img src="${pokeData[index]['sprites']['other']['home']['front_default']}"
+                        <img src="${useData[index]['sprites']['other']['home']['front_default']}"
                             alt="">
                     </div>
                 </div>
@@ -171,4 +172,36 @@ function smallCardHTML(index, htmlSnippet, bgColor, pfColor) {
             </div>
 `
     return html
+}
+
+// FILTER
+
+function filterPokemon() {
+    let inputName = document.getElementById('inputField').value;
+
+    if (inputName.length > 2) {
+        filterArray(inputName);
+        renderCard(pokeFilter);
+    } else {
+        renderCard(pokeData);
+    }
+};
+
+function resetInputField() {
+    let field = document.getElementById('inputField');
+    field.value = '';
+    filterPokemon()
+}
+
+
+function filterArray(input) {
+    pokeFilter = [];
+    for (let index = 0; index < pokeData.length; index++) {
+        let name = pokeData[index]['name'];
+        let length = input.length;
+
+        let subString = name.substring(0, length);
+        if (subString == input)
+            pokeFilter.push(pokeData[index])
+    }
 }

@@ -1,6 +1,8 @@
 :root {
 
     --clr-font-white: rgb(243, 243, 243);
+    --clr-pokemon-yellow: rgb(255, 205, 0);
+    --clr-pokemon-blue: rgb(53, 106, 188);
 
     --clr-bg-green-side: rgb(38, 100, 7);
     --clr-bg-green-middle: rgb(107, 231, 45);
@@ -53,42 +55,59 @@
 body {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-   background-color: rgb(228, 228, 228);
-   display: flex;
-   flex-direction: column;
-   align-items: center;
+    background-color: rgb(228, 228, 228);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-header{
-   background-color: white;
-   width: 100%;
+main {
+    margin-block: 24px;
 }
-header img{
+
+#loadButton {
+    font-size: 20px;
+    padding: 5px;
+    background-color: var(--clr-pokemon-blue);
+    color: var(--clr-pokemon-yellow);
+    border: 1px solid var(--clr-pokemon-yellow);
+    border-radius: 5px;
+}
+
+header {
+    background-color: white;
+    width: 100%;
+}
+
+header img {
     height: 80px;
     transform: translateY(10px);
 }
 
-header .wrapper{
+header .wrapper {
     max-width: 1300px;
     justify-content: flex-start;
     align-items: baseline;
     padding: 16px;
 }
 
-input{
+#inputField {
     margin-left: 24px;
     font-size: 16px;
-   
 }
 
-.wrapper{
+#resetButton {
+    font-size: 16px;
+}
+
+.wrapper {
     display: flex;
     flex: 1;
     justify-content: center;
     align-items: center;
     max-width: 1440px;
     margin-inline: auto;
-   
+
 }
 
 
@@ -171,7 +190,8 @@ input{
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
-.platform::after{
+
+.platform::after {
     content: '';
     width: 30px;
     height: 10px;
@@ -200,7 +220,7 @@ input{
 .ability {
     padding: 8px;
     width: 60px;
-  
+
     border-radius: 10px;
     margin-block: 10px;
     text-align: center;
