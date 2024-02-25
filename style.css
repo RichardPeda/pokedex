@@ -20,7 +20,7 @@
     --clr-pf-deepred: rgb(107, 26, 21);
 
     --clr-bg-blue-side: rgb(57, 104, 203);
-    --clr-bg-blue-middle: rgb(101, 136, 211);
+    --clr-bg-blue-middle: rgb(125, 152, 210);
     --clr-bg-blue-border: rgb(99, 148, 255);
     --clr-pf-blue: rgb(22, 65, 156);
 
@@ -59,57 +59,109 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
 main {
-   width: 100%;
-   min-height: 100vh;
+    display: flex;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    margin-top: 120px;
+    margin-bottom: 24px;
+   
+    width: 100%;
+    flex: 1;
     position: relative;
 }
 
 #loadButton {
-    font-size: 20px;
+    font-size: 16px;
     padding: 5px;
     background-color: var(--clr-pokemon-blue);
     color: var(--clr-pokemon-yellow);
     border: 1px solid var(--clr-pokemon-yellow);
     border-radius: 5px;
+    padding-inline: 8px;
+  
 }
 
 header {
     background-color: white;
+    min-height: 120px;
     width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 15;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }
 
 header img {
     height: 80px;
     transform: translateY(10px);
+    margin-right: 24px;
+}
+
+.search{
+    display: flex;
+    margin-top: 24px;
 }
 
 header .wrapper {
-    max-width: 1300px;
+    max-width: 1800px;
     justify-content: flex-start;
     align-items: baseline;
-    padding: 16px;
+    padding: 0 24px 16px 24px;
+    /* padding: 16px;
+    padding-top: 8px; */
+    flex-wrap: wrap;
+
 }
 
 #inputField {
-    margin-left: 24px;
+   
     font-size: 16px;
+    min-height: 28px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    /* transform: translateY(-10px); */
 }
 
 #resetButton {
     font-size: 16px;
+    background-color: var(--clr-pokemon-blue);
+    color: var(--clr-pokemon-yellow);
+    border: 1px solid var(--clr-pokemon-yellow);
+    border-radius: 5px;
+    padding-inline: 8px;
+    min-height: 32px;
+    /* transform: translateY(-10px); */
 }
 
 .wrapper {
     display: flex;
-    flex: 1;
+    /* flex: 1; */
     justify-content: center;
     align-items: center;
-    max-width: 1440px;
+    max-width: 1920px;
     margin-inline: auto;
+}
 
+.main-wrapper{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+   
+    align-items: center;
+    max-width: 1920px;
+    margin-inline: auto;
+   
+}
+
+main .wrapper{
+    flex: 1;
 }
 
 
@@ -233,10 +285,10 @@ header .wrapper {
 }
 
 /* LOADING */
-#loadingScreen{
+#loadingScreen {
     position: fixed;
-    background-color: black;
-    top: 0;
+    background-color: rgb(32, 32, 32);
+    top: 120px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -246,31 +298,47 @@ header .wrapper {
     justify-content: center;
     align-items: center;
 }
-.loadingText{
+
+.loadingText {
     margin-top: 10px;
     color: var(--clr-font-white);
 }
 
-.d-none{
+.d-none {
     display: none !important;
 }
 
 .loader {
-    border: 12px solid #f3f3f3; /* Light grey */
-    border-top: 12px solid #3498db; /* Blue */
+    border: 12px solid var(--clr-pokemon-blue);
+    /* Light grey */
+    border-top: 12px solid var(--clr-pokemon-yellow);
+    /* Blue */
     border-radius: 50%;
     width: 60px;
     height: 60px;
     animation: spin 1.5s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 
+footer{
+    display: flex;
+    height: 80px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, .2);
+}
 
+/* Colors */
 .bg-green {
     background: linear-gradient(113deg, var(--clr-bg-green-side) 0%, var(--clr-bg-green-middle) 51%, var(--clr-bg-green-side) 100%);
     border: 1px solid var(--clr-bg-green-border);
@@ -297,7 +365,6 @@ header .wrapper {
 .pf-deepred {
     background-color: var(--clr-pf-deepred);
 }
-
 
 .bg-blue {
     background: linear-gradient(113deg, var(--clr-bg-blue-side) 0%, var(--clr-bg-blue-middle) 51%, var(--clr-bg-blue-side) 100%);
@@ -342,4 +409,10 @@ header .wrapper {
 
 .pf-brown {
     background-color: var(--clr-pf-brown);
+}
+
+@media(max-width: 597px){
+    section{
+        margin-top: 150px;
+    }
 }

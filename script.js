@@ -176,7 +176,7 @@ function smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor) {
                 <div class="card-inner ${bgColor}">
                     <div class="card-header">
                         <h2 id="name">${useData[index]['name']}</h2>
-                        <div id="card-id">ID 000${useData[index]['order']}</div>
+                        <div id="card-id">Nr. ${useData[index]['order']}</div>
                     </div>
                     <div class="ability-container">
                        ${htmlSnippet}
