@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+
     <title>Pokedex</title>
 </head>
 
-<body onload="init()">
+<body onload="">
 
 
     <header>
@@ -18,18 +19,48 @@
                 <input id="inputField" onkeyup="filterPokemon()" type="text" placeholder="Search your Pokemon...">
                 <button onclick="resetInputField()" id="resetButton">Reset Filter</button>
             </div>
-           
         </div>
     </header>
 
 
-    <section>
+    <!-- <section>
         <div class="main-wrapper">
             <div id="card-container"></div>
             <button onclick="loadMore()" id="loadButton">Load more</button>
         </div>
-    </section>
+    </section> -->
 
+    <div id="detailScreen">
+        <div id="detailCard-border">
+            <div class="detailCard-inner">
+                <div class="detailCard-top">
+                    <h2 id="name">Name</h2>
+                    <div id="card-id">1</div>
+                    <div class="ability-container">
+                        <div class="ability pf-green">grass</div>
+                        <div class="ability pf-green">grass</div>
+                    </div>
+                    <img class="big-char-img" src="img/1.png" alt="">
+                </div>
+                <div class="detailCard-bottom">
+                    <div class="statistics">
+                        <p>Health</p>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                    <div class="statistics">
+                        <p>Health</p>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 
@@ -44,7 +75,9 @@
     <footer>
     </footer>
 
+
     <script src="script.js"></script>
+
 </body>
 
 </html>

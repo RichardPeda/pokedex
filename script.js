@@ -224,3 +224,4 @@ function filterArray(input) {
             pokeFilter.push(pokeData[index])
     }
 }
+

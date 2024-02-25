@@ -43,6 +43,9 @@
     --clr-bg-brown-middle: rgb(184, 105, 40);
     --clr-bg-brown-border: rgb(116, 66, 24);
     --clr-pf-brown: rgb(116, 66, 24);
+
+    --clr-bg-detail-border-side: rgb(67, 67, 67);
+    --clr-bg-detail-border-middle: rgb(214, 214, 214);
 }
 
 
@@ -50,10 +53,11 @@
 * {
     margin: 0;
     transition: all 225ms ease-in-out;
+    box-sizing: border-box;
 }
 
 body {
-    box-sizing: border-box;
+   
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(228, 228, 228);
     display: flex;
@@ -336,6 +340,92 @@ footer{
     width: 100%;
     background-color: white;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, .2);
+}
+
+#detailScreen{
+    position: fixed;
+    background-color: rgb(32, 32, 32, .9);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#detailCard-border{
+    width: min(320px, 90%);
+    margin-inline: 10px;
+    height: 550px;
+    background: linear-gradient(113deg, var(--clr-bg-detail-border-side) 0%, var(--clr-bg-detail-border-middle) 51%, var(--clr-bg-detail-border-side) 100%);
+  border-radius: 10px;
+  padding: 10px;
+}
+.detailCard-inner{
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(113deg, var(--clr-bg-green-side) 0%, var(--clr-bg-green-middle) 51%, var(--clr-bg-green-side) 100%);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  
+    
+}
+.detailCard-top{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.big-char-img{
+    width: 50%;
+}
+
+.detailCard-bottom{
+    width: 100%;
+    height: 50%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+   padding: 20px 8px;
+    gap: 10px;
+   
+   
+}
+.statistics{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.statistics p{
+    font-size: 10px;
+    width: 30px;
+}
+
+.progress{
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: gray;
+}
+.progress-bar{
+    height: 100%;
+    background-color: blue;
+    width: 25%;
 }
 
 /* Colors */
