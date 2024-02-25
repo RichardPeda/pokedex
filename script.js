@@ -1,6 +1,6 @@
 let limit = 15;
 let offset = 0;
-
+let loading = true;
 
 let pokeURL = [];
 let pokeData = [];
@@ -9,13 +9,31 @@ let pokeFilter = [];
 
 async function init() {
 
+
     await loadPokemonURL(offset, limit);
     await loadPokeDetails(offset, limit);
     renderCard(pokeData);
 }
 
 
+function manageLoading() {
+    let screen = document.getElementById('loadingScreen');
+
+
+    if (loading) {
+        screen.classList.remove('d-none')
+    } else {
+        setTimeout(() => {
+            screen.classList.add('d-none')
+          }, 1000);
+       
+    }
+}
+
 async function loadPokemonURL(start, end) {
+    loading = true;
+    manageLoading();
+
     let url = `https://pokeapi.co/api/v2/pokemon?limit=${end}&offset=${start}`;
     let response = await fetch(url);
     let responseAsJson = await response.json();
@@ -29,7 +47,7 @@ async function loadPokemonURL(start, end) {
 
 async function loadPokeDetails(offset, limit) {
 
-   
+
 
     for (let i = offset; i < limit; i++) {
         let url = pokeURL[i];
@@ -39,7 +57,8 @@ async function loadPokeDetails(offset, limit) {
         pokeData.push(responseAsJson)
 
     }
-    console.log(pokeData)
+    loading = false;
+    manageLoading();
 }
 
 async function loadMore() {

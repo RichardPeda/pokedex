@@ -62,7 +62,9 @@ body {
 }
 
 main {
-    margin-block: 24px;
+   width: 100%;
+   min-height: 100vh;
+    position: relative;
 }
 
 #loadButton {
@@ -229,6 +231,43 @@ header .wrapper {
 .secondary {
     background-color: greenyellow;
 }
+
+/* LOADING */
+#loadingScreen{
+    position: fixed;
+    background-color: black;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loadingText{
+    margin-top: 10px;
+    color: var(--clr-font-white);
+}
+
+.d-none{
+    display: none !important;
+}
+
+.loader {
+    border: 12px solid #f3f3f3; /* Light grey */
+    border-top: 12px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 
 
