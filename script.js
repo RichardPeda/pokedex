@@ -5,10 +5,9 @@ let loading = true;
 let pokeURL = [];
 let pokeData = [];
 let pokeFilter = [];
-
+let filtered = false;
 
 async function init() {
-
 
     await loadPokemonURL(offset, limit);
     await loadPokeDetails(offset, limit);
@@ -19,12 +18,11 @@ async function init() {
 function manageLoading() {
     let screen = document.getElementById('loadingScreen');
 
-
     if (loading) {
         screen.classList.remove('d-none')
     } else {
         setTimeout(() => {
-            screen.classList.add('d-none')
+            screen.classList.add('d-none') //minimum time showing loading screen
         }, 1000);
 
     }
@@ -46,8 +44,6 @@ async function loadPokemonURL(start, end) {
 
 
 async function loadPokeDetails(offset, limit) {
-
-
 
     for (let i = offset; i < limit; i++) {
         let url = pokeURL[i];
@@ -75,69 +71,16 @@ function renderCard(useData) {
     container.innerHTML = ''
     for (let index = 0; index < useData.length; index++) {
 
-        let { types, bgColor, pfColor } = getTypes(useData, index);
+        let { types, bgColor, pfColor } = getTypes(useData[index]);
         let htmlSnippet = renderTypes(types, pfColor);
         container.innerHTML += smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor)
-
     }
 }
 
-function getBgColors(expr) {
-    switch (expr) {
-        case 'grass':
-            return {
-                bgColor: 'bg-green',
-                pfColor: 'pf-green'
-            }
-            break;
-        case 'fire':
-            return {
-                bgColor: 'bg-red',
-                pfColor: 'pf-red'
-            }
-            break;
-        case 'water':
-            return {
-                bgColor: 'bg-blue',
-                pfColor: 'pf-blue'
-            }
-            break;
-        case 'bug':
-            return {
-                bgColor: 'bg-deepred',
-                pfColor: 'pf-deepred'
-            }
-            break;
-        case 'normal':
-            return {
-                bgColor: 'bg-gray',
-                pfColor: 'pf-gray'
-            }
-        case 'electric':
-            return {
-                bgColor: 'bg-yellow',
-                pfColor: 'pf-yellow'
-            }
-        case 'poison':
-            return {
-                bgColor: 'bg-purple',
-                pfColor: 'pf-purple'
-            }
-        case 'ground':
-            return {
-                bgColor: 'bg-brown',
-                pfColor: 'pf-brown'
-            }
-        default:
-            return {
-                bgColor: 'bg-gray',
-                pfColor: 'pf-gray'
-            }
-    }
-}
 
 function getTypes(useData, index) {
-    let types = useData[index]['types'];
+
+    let types = useData['types'];
     let typesArray = [];
     for (let index = 0; index < types.length; index++) {
         const name = types[index]['type']['name'];
@@ -162,52 +105,25 @@ function renderTypes(types, pfColor) {
     return html
 }
 
-function typeHTMLsnippet(type, pfColor) {
-    let html = '';
-    html = /*html*/`
-         <div class="ability ${pfColor}">${type}</div>
-    `
-    return html
-}
-
-function smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor) {
-    let html = /*html*/`
-    <div onclick="renderDetailCard(${index})" class="card">
-                <div class="card-inner ${bgColor}">
-                    <div class="card-header">
-                        <h2 id="name">${useData[index]['name']}</h2>
-                        <div id="card-id"># ${useData[index]['order']}</div>
-                    </div>
-                    <div class="ability-container">
-                       ${htmlSnippet}
-                    </div>
-                    <div class="image-container">
-                        <img src="${useData[index]['sprites']['other']['home']['front_default']}"
-                            alt="">
-                    </div>
-                </div>
-               <div class="platform ${pfColor}"></div>
-
-            </div>
-`
-    return html
-}
-
 // FILTER
 
 function filterPokemon() {
     let inputName = document.getElementById('inputField').value;
 
+    if (inputName.length > 0) {
+        inputName = inputName[0].toLowerCase() + inputName.slice(1);
+    }
+
     if (inputName.length > 2) {
         filterArray(inputName);
-        if(pokeFilter.length > 0){
+        if (pokeFilter.length > 0) {
             renderCard(pokeFilter);
-        }else{
-            alert(`Your search by name "${inputName}" returned no results`)
+            filtered = true;
         }
-       
+
     } else {
         renderCard(pokeData);
+        filtered = false;
     }
 };
 
@@ -241,7 +157,8 @@ detailScreen.addEventListener("click", e => {
 })
 
 function renderDetailCard(index) {
-    let useData = pokeData[index]
+    
+    let useData = filtered ? pokeFilter[index] : pokeData[index];
 
     let stats = useData['stats']
     let bases = []
@@ -252,60 +169,20 @@ function renderDetailCard(index) {
         bases.push(base)
         barHTMLSnippet += statHTMLsnippet(base, name)
     }
-    let { types, bgColor, pfColor } = getTypes(pokeData, index);
+    let { types, bgColor, pfColor } = getTypes(useData, index);
     let typesHTMLsnippet = renderTypes(types, pfColor);
-
 
     let container = document.getElementById('detailScreen')
     container.classList.remove('d-none')
-   document.querySelector('body').classList.add('stop-scrolling')
-   
+    document.querySelector('body').classList.add('stop-scrolling')
+
     container.innerHTML = ''
     container.innerHTML = detailCardHTML(index, useData, bgColor, barHTMLSnippet, typesHTMLsnippet);
-    
+
     barAnimate(bases)
 }
 
-function statHTMLsnippet(base, name) {
-    name = name[0].toUpperCase() + name.slice(1); //First letter to Uppercase
-    let html = ''
-    html = /*html*/`
-        <div class="statistics">
-                    <p>${name}</p>
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                        <div class="progress-amount">${base}</div>
-                    </div>
-                </div>
-    `
-    return html
-}
 
-
-function detailCardHTML(index, useData, bgColor, barHTMLSnippet, typesHTMLsnippet) {
-    let html = /*html*/`
-     <div id="detailCard-border">
-        <div class="detailCard-inner ${bgColor}">
-            <div class="detailCard-top">
-                <h2 id="name">${useData['name']}</h2>
-                <div id="detailCard-id"># ${useData['order']}</div>
-                <img onclick="nextCardRight(${index})" class="next-button right" src="./img/arrow-right.svg">
-                        <img onclick="nextCardLeft(${index})" class="next-button left" src="./img/arrow-left.svg">
-                <div class="ability-container">
-                    ${typesHTMLsnippet}
-                </div>
-                <img class="big-char-img" src="${useData['sprites']['other']['home']['front_default']}" alt="">
-            </div>
-            <div class="detailCard-bottom">
-                ${barHTMLSnippet}
-            </div>
-        </div>
-    </div>        
-`
-    return html
-}
-
-let barColors = ['green', 'red', 'orange', 'blue', 'rgb(79, 215, 5)', 'purple']
 
 function barAnimate(bases) {
     let bars = document.querySelectorAll('.progress');
@@ -331,9 +208,9 @@ function progressAnimation(bar, value, color) {
 
         valueStart = counter(valueStart, valueEnd)
         text.textContent = `${valueStart}`
-        progress.style.width = `${valueStart-10}%`
-        text.style.left = `${valueStart-20}%`
-       
+        progress.style.width = `${valueStart - 10}%`
+        text.style.left = `${valueStart - 20}%`
+
         if (valueStart >= valueEnd) {
             clearInterval(myintervall)
         }
@@ -348,21 +225,24 @@ function counter(start, end) {
     return start
 }
 
-function nextCardRight(index){
+function nextCardRight(index) {
+
+    let data = filtered ? pokeFilter : pokeData;
+
     index += 1;
-    if(index == pokeData.length){
-        index=0;
+    if (index == data.length) {
+        index = 0;
     }
     renderDetailCard(index)
-
 }
 
-function nextCardLeft(index){
+function nextCardLeft(index) {
+   
+    let data = filtered ? pokeFilter : pokeData;
+
     index -= 1;
-    if(index < 0){
-        index= pokeData.length - 1;
+    if (index < 0) {
+        index = data.length - 1;
     }
-    console.log(index)
     renderDetailCard(index)
-    
 }
