@@ -14,7 +14,7 @@ function smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor) {
                 <div class="card-inner ${bgColor}">
                     <div class="card-header">
                         <h2 id="name">${name}</h2>
-                        <div id="card-id"># ${useData[index]['order']}</div>
+                        <div id="card-id"># ${useData[index]['id']}</div>
                     </div>
                     <div class="ability-container">
                        ${htmlSnippet}
@@ -53,7 +53,7 @@ function detailCardHTML(index, useData, bgColor, barHTMLSnippet, typesHTMLsnippe
         <div class="detailCard-inner ${bgColor}">
             <div class="detailCard-top">
                 <h2 id="name">${name}</h2>
-                <div id="detailCard-id"># ${useData['order']}</div>
+                <div id="detailCard-id"># ${useData['id']}</div>
                 <img onclick="nextCardRight(${index})" class="next-button right" src="./img/arrow-right.svg">
                         <img onclick="nextCardLeft(${index})" class="next-button left" src="./img/arrow-left.svg">
                 <div class="ability-container">
