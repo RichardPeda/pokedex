@@ -176,7 +176,7 @@ function smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor) {
                 <div class="card-inner ${bgColor}">
                     <div class="card-header">
                         <h2 id="name">${useData[index]['name']}</h2>
-                        <div id="card-id">Nr. ${useData[index]['order']}</div>
+                        <div id="card-id"># ${useData[index]['order']}</div>
                     </div>
                     <div class="ability-container">
                        ${htmlSnippet}
@@ -200,7 +200,12 @@ function filterPokemon() {
 
     if (inputName.length > 2) {
         filterArray(inputName);
-        renderCard(pokeFilter);
+        if(pokeFilter.length > 0){
+            renderCard(pokeFilter);
+        }else{
+            alert(`Your search by name "${inputName}" returned no results`)
+        }
+       
     } else {
         renderCard(pokeData);
     }
@@ -230,6 +235,7 @@ detailScreen.addEventListener("click", e => {
 
     if (target == detailScreen) {
         detailScreen.classList.add('d-none')
+        document.querySelector('body').classList.remove('stop-scrolling')
     }
 
 })
@@ -252,8 +258,10 @@ function renderDetailCard(index) {
 
     let container = document.getElementById('detailScreen')
     container.classList.remove('d-none')
+   document.querySelector('body').classList.add('stop-scrolling')
+   
     container.innerHTML = ''
-    container.innerHTML = detailCardHTML(useData, bgColor, barHTMLSnippet, typesHTMLsnippet);
+    container.innerHTML = detailCardHTML(index, useData, bgColor, barHTMLSnippet, typesHTMLsnippet);
     
     barAnimate(bases)
 }
@@ -274,15 +282,17 @@ function statHTMLsnippet(base, name) {
 }
 
 
-function detailCardHTML(useData, bgColor, barHTMLSnippet, typesHTMLsnippet) {
+function detailCardHTML(index, useData, bgColor, barHTMLSnippet, typesHTMLsnippet) {
     let html = /*html*/`
      <div id="detailCard-border">
         <div class="detailCard-inner ${bgColor}">
             <div class="detailCard-top">
                 <h2 id="name">${useData['name']}</h2>
-                <div id="card-id">${useData['order']}</div>
+                <div id="detailCard-id"># ${useData['order']}</div>
+                <img onclick="nextCardRight(${index})" class="next-button right" src="./img/arrow-right.svg">
+                        <img onclick="nextCardLeft(${index})" class="next-button left" src="./img/arrow-left.svg">
                 <div class="ability-container">
-                ${typesHTMLsnippet}
+                    ${typesHTMLsnippet}
                 </div>
                 <img class="big-char-img" src="${useData['sprites']['other']['home']['front_default']}" alt="">
             </div>
@@ -295,16 +305,14 @@ function detailCardHTML(useData, bgColor, barHTMLSnippet, typesHTMLsnippet) {
     return html
 }
 
-let barColors = ['red', 'orange', 'aquamarine', 'blue', 'green', 'purple']
+let barColors = ['green', 'red', 'orange', 'blue', 'rgb(79, 215, 5)', 'purple']
 
 function barAnimate(bases) {
     let bars = document.querySelectorAll('.progress');
 
     bars.forEach((bar, index) => {
-
         progressAnimation(bar, bases[index], barColors[index])
     });
-
 }
 
 // Progress Bar Animation
@@ -316,8 +324,6 @@ function progressAnimation(bar, value, color) {
     progress.style.backgroundColor = `${color}`
 
     let text = bar.querySelector('.progress-amount')
-   
-
     let valueStart = 0;
     let valueEnd = value;
     let duration = durationAnimation / valueEnd;
@@ -325,10 +331,9 @@ function progressAnimation(bar, value, color) {
 
         valueStart = counter(valueStart, valueEnd)
         text.textContent = `${valueStart}`
-        progress.style.width = `${valueStart}%`
-        text.style.left = `${valueStart-10}%`
+        progress.style.width = `${valueStart-10}%`
+        text.style.left = `${valueStart-20}%`
        
-
         if (valueStart >= valueEnd) {
             clearInterval(myintervall)
         }
@@ -341,4 +346,23 @@ function counter(start, end) {
         start += 1;
     }
     return start
+}
+
+function nextCardRight(index){
+    index += 1;
+    if(index == pokeData.length){
+        index=0;
+    }
+    renderDetailCard(index)
+
+}
+
+function nextCardLeft(index){
+    index -= 1;
+    if(index < 0){
+        index= pokeData.length - 1;
+    }
+    console.log(index)
+    renderDetailCard(index)
+    
 }
