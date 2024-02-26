@@ -9,7 +9,7 @@
     <title>Pokedex</title>
 </head>
 
-<body onload="">
+<body onload="init()">
 
 
     <header>
@@ -23,15 +23,15 @@
     </header>
 
 
-    <!-- <section>
+    <section>
         <div class="main-wrapper">
             <div id="card-container"></div>
             <button onclick="loadMore()" id="loadButton">Load more</button>
         </div>
-    </section> -->
+    </section>
 
-    <div id="detailScreen">
-        <div id="detailCard-border">
+    <div id="detailScreen" class="d-none">
+        <!-- <div id="detailCard-border">
             <div class="detailCard-inner">
                 <div class="detailCard-top">
                     <h2 id="name">Name</h2>
@@ -47,19 +47,21 @@
                         <p>Health</p>
                         <div class="progress">
                             <div class="progress-bar"></div>
+                            <div class="progress-amount">0</div>
                         </div>
                     </div>
                     <div class="statistics">
                         <p>Health</p>
                         <div class="progress">
                             <div class="progress-bar"></div>
+                            <div class="progress-amount">0</div>
                         </div>
                     </div>
                    
                 </div>
             </div>
 
-        </div>
+        </div> -->
     </div>
 
 

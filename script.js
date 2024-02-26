@@ -25,8 +25,8 @@ function manageLoading() {
     } else {
         setTimeout(() => {
             screen.classList.add('d-none')
-          }, 1000);
-       
+        }, 1000);
+
     }
 }
 
@@ -172,7 +172,7 @@ function typeHTMLsnippet(type, pfColor) {
 
 function smallCardHTML(useData, index, htmlSnippet, bgColor, pfColor) {
     let html = /*html*/`
-    <div class="card">
+    <div onclick="renderDetailCard(${index})" class="card">
                 <div class="card-inner ${bgColor}">
                     <div class="card-header">
                         <h2 id="name">${useData[index]['name']}</h2>
@@ -212,7 +212,6 @@ function resetInputField() {
     filterPokemon()
 }
 
-
 function filterArray(input) {
     pokeFilter = [];
     for (let index = 0; index < pokeData.length; index++) {
@@ -225,3 +224,121 @@ function filterArray(input) {
     }
 }
 
+let detailScreen = document.getElementById('detailScreen')
+detailScreen.addEventListener("click", e => {
+    let target = e.target;
+
+    if (target == detailScreen) {
+        detailScreen.classList.add('d-none')
+    }
+
+})
+
+function renderDetailCard(index) {
+    let useData = pokeData[index]
+
+    let stats = useData['stats']
+    let bases = []
+    let barHTMLSnippet = ''
+    for (let i = 0; i < stats.length; i++) {
+        let base = stats[i]['base_stat'];
+        let name = stats[i]['stat']['name']
+        bases.push(base)
+        barHTMLSnippet += statHTMLsnippet(base, name)
+    }
+    let { types, bgColor, pfColor } = getTypes(pokeData, index);
+    let typesHTMLsnippet = renderTypes(types, pfColor);
+
+
+    let container = document.getElementById('detailScreen')
+    container.classList.remove('d-none')
+    container.innerHTML = ''
+    container.innerHTML = detailCardHTML(useData, bgColor, barHTMLSnippet, typesHTMLsnippet);
+    
+    barAnimate(bases)
+}
+
+function statHTMLsnippet(base, name) {
+    name = name[0].toUpperCase() + name.slice(1); //First letter to Uppercase
+    let html = ''
+    html = /*html*/`
+        <div class="statistics">
+                    <p>${name}</p>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                        <div class="progress-amount">${base}</div>
+                    </div>
+                </div>
+    `
+    return html
+}
+
+
+function detailCardHTML(useData, bgColor, barHTMLSnippet, typesHTMLsnippet) {
+    let html = /*html*/`
+     <div id="detailCard-border">
+        <div class="detailCard-inner ${bgColor}">
+            <div class="detailCard-top">
+                <h2 id="name">${useData['name']}</h2>
+                <div id="card-id">${useData['order']}</div>
+                <div class="ability-container">
+                ${typesHTMLsnippet}
+                </div>
+                <img class="big-char-img" src="${useData['sprites']['other']['home']['front_default']}" alt="">
+            </div>
+            <div class="detailCard-bottom">
+                ${barHTMLSnippet}
+            </div>
+        </div>
+    </div>        
+`
+    return html
+}
+
+let barColors = ['red', 'orange', 'aquamarine', 'blue', 'green', 'purple']
+
+function barAnimate(bases) {
+    let bars = document.querySelectorAll('.progress');
+
+    bars.forEach((bar, index) => {
+
+        progressAnimation(bar, bases[index], barColors[index])
+    });
+
+}
+
+// Progress Bar Animation
+
+function progressAnimation(bar, value, color) {
+
+    let durationAnimation = 1000;
+    let progress = bar.querySelector('.progress-bar')
+    progress.style.backgroundColor = `${color}`
+
+    let text = bar.querySelector('.progress-amount')
+   
+
+    let valueStart = 0;
+    let valueEnd = value;
+    let duration = durationAnimation / valueEnd;
+    let myintervall = setInterval(() => {
+
+        valueStart = counter(valueStart, valueEnd)
+        text.textContent = `${valueStart}`
+        progress.style.width = `${valueStart}%`
+        text.style.left = `${valueStart-10}%`
+       
+
+        if (valueStart >= valueEnd) {
+            clearInterval(myintervall)
+        }
+    }, duration);
+
+}
+
+function counter(start, end) {
+    if (start < end) {
+        start += 1;
+    }
+    return start
+}
