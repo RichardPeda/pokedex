@@ -89,6 +89,7 @@ section {
     border: 1px solid var(--clr-pokemon-yellow);
     border-radius: 5px;
     padding-inline: 8px;
+    cursor: pointer;
 
 }
 
@@ -152,6 +153,7 @@ header .wrapper {
     border-radius: 5px;
     padding-inline: 8px;
     min-height: 32px;
+    cursor: pointer;
     /* transform: translateY(-10px); */
 }
 
@@ -211,6 +213,7 @@ main .wrapper {
     overflow: hidden;
     border-radius: 10px;
     color: var(--clr-font-white);
+    cursor: pointer;
 
 
 }
