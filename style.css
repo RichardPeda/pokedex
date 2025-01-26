@@ -291,7 +291,7 @@ main .wrapper {
 
 .ability {
     padding: 8px;
-    width: 60px;
+    min-width: 60px;
 
     border-radius: 10px;
     margin-block: 10px;
